@@ -1,3 +1,37 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar color="primary">
+  Angular Todo App
+  <span class="element-filler"></span>
+  <button md-button (click)="addNewProject()"><md-icon>add</md-icon> Add new Project</button>
+</md-toolbar>
+
+<div class="container">
+  <masonry [options]="{ percentPosition: true }">
+    <masonry-brick *ngFor="let project of projects;" >
+      <md-card>
+        <md-card-header class="project-title">
+            <input class="title-input" placeholder="Project Title">
+        </md-card-header>
+
+        <md-card-content>
+          <ng-container *ngIf="project.tasks">
+            <div *ngFor="let task of project.tasks; let i=index">
+              <div *ngIf="i<6">
+
+                <!--<ion-icon name="square-outline" *ngIf="!task.completed"></ion-icon>-->
+                <!--<ion-icon name="checkbox" *ngIf="task.completed"></ion-icon>-->
+                <span class="taskname" [ngClass]="{'taskcompleted': task.completed}">{{task.name}}</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="taskempty" *ngIf="project.tasks.length==0">
+            <md-icon>info</md-icon>
+            <!--<ion-icon name="add"></ion-icon><br>-->
+            <span>Tap here to add tasks</span><br><br>
+          </div>
+
+        </md-card-content>
+      </md-card>
+    </masonry-brick>
+  </masonry>
+</div>

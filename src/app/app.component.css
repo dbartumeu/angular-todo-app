@@ -1,0 +1,61 @@
+.element-filler {
+  flex: 1 1 auto;
+}
+
+.container {
+  padding: 100px 40px 40px 40px;
+}
+
+md-toolbar {
+  position: fixed;
+  z-index: 1000;
+}
+
+.project-title>div {
+  display: none !important;
+}
+
+/*Columns Breakpoints*/
+@media only screen and (min-width: 300px) {
+  masonry-brick {
+    width: calc(50% - 10px);
+    padding: 5px;
+  }
+
+  .container {
+    padding: 70px 10px 10px 10px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  masonry-brick {
+    width: calc(33.3333% - 10px);
+    padding: 5px;
+  }
+
+  .container {
+    padding: 80px 20px 20px 20px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  masonry-brick {
+    width: calc(25% - 10px);
+    padding: 5px;
+  }
+
+  .container {
+    padding: 100px 40px 40px 40px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  masonry-brick {
+    width: calc(20% - 20px);
+    padding: 10px;
+  }
+
+  .container {
+    padding: 100px 40px 40px 40px;
+  }
+}
