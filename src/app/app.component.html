@@ -1,19 +1,31 @@
 <md-toolbar color="primary">
   Angular Todo App
   <span class="element-filler"></span>
-  <button md-button (click)="addNewProject()"><md-icon>add</md-icon> Add new Project</button>
+  <button md-button (click)="addNewProject()">
+    <md-icon>add</md-icon>
+    Add new Project
+  </button>
 </md-toolbar>
 
-<div class="container">
-  <masonry [options]="{ percentPosition: true }">
-    <masonry-brick *ngFor="let project of projects;" >
+<div id="container" class="container">
+  <masonry>
+    <masonry-brick *ngFor="let project of projects;">
       <md-card>
-        <md-card-header class="project-title">
-            <input class="title-input" placeholder="Project Title">
+        <md-card-header>
+          <md-card-title>
+            <div fxLayout="row">
+              <div fxFlex>
+                <input class="project-title" placeholder="Project Title" [(ngModel)]="project.name"
+                       [debounce]="500" (onDebounce)="saveProject(project)">
+              </div>
+              <button md-icon-button>
+                <md-icon>delete</md-icon>
+              </button>
+            </div>
+          </md-card-title>
         </md-card-header>
 
         <md-card-content>
-          <ng-container *ngIf="project.tasks">
             <div *ngFor="let task of project.tasks; let i=index">
               <div *ngIf="i<6">
 
@@ -22,15 +34,23 @@
                 <span class="taskname" [ngClass]="{'taskcompleted': task.completed}">{{task.name}}</span>
               </div>
             </div>
-          </ng-container>
 
           <div class="taskempty" *ngIf="project.tasks.length==0">
             <md-icon>info</md-icon>
-            <!--<ion-icon name="add"></ion-icon><br>-->
             <span>Tap here to add tasks</span><br><br>
           </div>
 
         </md-card-content>
+        <md-card-actions>
+          <div fxLayout="row">
+            <md-input-container class="add-task" fxFlex>
+              <input mdInput placeholder="Add Task">
+            </md-input-container>
+            <button md-icon-button>
+              <md-icon>add</md-icon>
+            </button>
+          </div>
+        </md-card-actions>
       </md-card>
     </masonry-brick>
   </masonry>
