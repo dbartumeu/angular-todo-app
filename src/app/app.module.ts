@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { Material2DialogsModule } from './modules/material2-dialogs';
 import { MasonryModule } from 'angular2-masonry';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -27,6 +28,7 @@ import { DebounceDirective } from './directives/debounce.directive';
     HttpModule,
     MaterialModule.forRoot(),
     MasonryModule,
+    Material2DialogsModule,
     FlexLayoutModule,
     BrowserAnimationsModule
   ],

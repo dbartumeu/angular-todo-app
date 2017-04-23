@@ -18,7 +18,7 @@
                 <input class="project-title" placeholder="Project Title" [(ngModel)]="project.name"
                        [debounce]="500" (onDebounce)="saveProject(project)">
               </div>
-              <button md-icon-button>
+              <button md-icon-button (click)="removeProject(project)">
                 <md-icon>delete</md-icon>
               </button>
             </div>

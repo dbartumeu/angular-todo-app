@@ -1,7 +1,7 @@
 import {Component, Inject, forwardRef} from '@angular/core';
 import {Projects} from '../app/services/projects.service';
 import {FormControl} from '@angular/forms';
-import {DOCUMENT} from '@angular/platform-browser';
+import {Material2Dialogs} from './modules/material2-dialogs';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,8 @@ export class AppComponent {
   public editingTask;
 
 
-  constructor(public projectsData: Projects) {
+  constructor(public projectsData: Projects,
+              public mdDialogs: Material2Dialogs) {
     this.getProjects();
   }
 
@@ -57,13 +58,25 @@ export class AppComponent {
   }
 
   removeProject(project) {
-    this.projectsData.remove(project.id).then(data => {
-      console.log(data);
-      this.projects.forEach((proj, i) => {
-        if (proj.id == project.id) {
-          this.projects.splice(i, 1);
+    this.mdDialogs
+      .confirm({
+          title: 'Deleting Project',
+          message: 'Are you sure you want to delete project ' + project.name + '?',
+          okButton: 'Yes',
+          cancelButton: 'No'
+        }
+      )
+      .subscribe(res => {
+        if (res) {
+          this.projectsData.remove(project.id).then(data => {
+            console.log(data);
+            this.projects.forEach((proj, i) => {
+              if (proj.id == project.id) {
+                this.projects.splice(i, 1);
+              }
+            });
+          })
         }
       });
-    })
   }
 }
