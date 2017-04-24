@@ -26,27 +26,50 @@
         </md-card-header>
 
         <md-card-content>
-            <div *ngFor="let task of project.tasks; let i=index">
-              <div *ngIf="i<6">
-
-                <!--<ion-icon name="square-outline" *ngIf="!task.completed"></ion-icon>-->
-                <!--<ion-icon name="checkbox" *ngIf="task.completed"></ion-icon>-->
-                <span class="taskname" [ngClass]="{'taskcompleted': task.completed}">{{task.name}}</span>
+          <ng-container *ngFor="let task of project.tasks; let i=index">
+            <div class="task-item" fxLayout="row" *ngIf="!task.completed">
+              <md-checkbox class="example-margin" [(ngModel)]="task.completed"
+                           (ngModelChange)="saveProject(project)"></md-checkbox>
+              <div fxFlex>
+                <input class="task-title" placeholder="Task Title" [(ngModel)]="task.name">
               </div>
+              <button md-icon-button (click)="removeTask(project, task)">
+                <md-icon>close</md-icon>
+              </button>
             </div>
+          </ng-container>
 
-          <div class="taskempty" *ngIf="project.tasks.length==0">
-            <md-icon>info</md-icon>
-            <span>Tap here to add tasks</span><br><br>
+          <div class="task-empty" *ngIf="project.tasks.length==0">
+            <br>
+            <md-icon>info</md-icon><br>
+            <h3>This project is a little empty.<br> Add some tasks.</h3>
           </div>
+
+          <div id="task-completed-header" *ngIf="checkForCompletedTasks(project)">
+            <h4>Completed</h4>
+          </div>
+
+          <ng-container *ngFor="let task of project.tasks; let i=index">
+            <div class="task-item" fxLayout="row" *ngIf="task.completed">
+              <md-checkbox class="example-margin" [(ngModel)]="task.completed"
+                           (ngModelChange)="saveProject(project)"></md-checkbox>
+              <div fxFlex>
+                <span class="task-completed">{{task.name}}</span>
+              </div>
+              <button md-icon-button (click)="removeTask(project, task)">
+                <md-icon>close</md-icon>
+              </button>
+            </div>
+          </ng-container>
 
         </md-card-content>
         <md-card-actions>
           <div fxLayout="row">
             <md-input-container class="add-task" fxFlex>
-              <input mdInput placeholder="Add Task">
+              <input mdInput placeholder="Add Task" [(ngModel)]="project.newTask"
+                     (keydown)="addTaskOnKeyEnterPress($event, project)">
             </md-input-container>
-            <button md-icon-button>
+            <button md-icon-button (click)="addTask(project)">
               <md-icon>add</md-icon>
             </button>
           </div>

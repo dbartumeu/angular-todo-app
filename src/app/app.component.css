@@ -22,6 +22,10 @@ md-card-content {
 md-card-actions{
   width: 100%;
   margin-left: 0;
+
+}
+md-card-actions>div{
+  padding-right: 8px;
 }
 
 .project-title {
@@ -31,7 +35,31 @@ md-card-actions{
   width: 100%;
 }
 
-.project-title:focus {
+.task-title {
+  border: none;
+  font-size: 1rem;
+  color: #333;
+  width: 100%;
+}
+.task-item{
+  margin-bottom: 10px;
+}
+.task-completed{
+  text-decoration: line-through;
+}
+
+.task-empty{
+  color: #cbcbcb;
+  text-align: center;
+}
+
+.mat-icon-button{
+  height: 25px;
+  width: 25px;
+  line-height: 20px
+}
+
+.project-title:focus, .task-title:focus {
   box-shadow: none;
   outline: none;
 }

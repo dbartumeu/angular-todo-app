@@ -1,6 +1,5 @@
 import {Component, Inject, forwardRef} from '@angular/core';
 import {Projects} from '../app/services/projects.service';
-import {FormControl} from '@angular/forms';
 import {Material2Dialogs} from './modules/material2-dialogs';
 
 @Component({
@@ -10,18 +9,12 @@ import {Material2Dialogs} from './modules/material2-dialogs';
 })
 export class AppComponent {
   public projects: Array<any>;
-  projectTitleControl = new FormControl();
-
-  project: any;
   public newTask: string;
-  public editingTask;
-
 
   constructor(public projectsData: Projects,
               public mdDialogs: Material2Dialogs) {
     this.getProjects();
   }
-
 
   /**
    * Get all projects from storage
@@ -57,6 +50,10 @@ export class AppComponent {
     })
   }
 
+  /**
+   * Delete project
+   * @param project
+   */
   removeProject(project) {
     this.mdDialogs
       .confirm({
@@ -78,5 +75,69 @@ export class AppComponent {
           })
         }
       });
+  }
+
+  /**
+   * Add new Task to the current project
+   */
+  addTask(project) {
+    if (project.newTask) {
+      project.tasks.push({
+        id: this.projectsData.getId(),
+        name: project.newTask,
+        completed: false
+      });
+
+      project.newTask = '';
+      this.projectsData.save(project).then(data => {
+        // project.newTask = '';
+      });
+
+    } else {
+
+    }
+  }
+
+  /**
+   * Check if at least one task is completed
+   * @param project
+   * @returns {boolean}
+   */
+  checkForCompletedTasks(project) {
+    let condition = false;
+
+    project.tasks.forEach(task => {
+      if (task.completed) {
+        condition = true;
+      }
+    });
+
+    return condition;
+  }
+
+  /**
+   * Add task on key enter
+   * @param event
+   * @param project
+   */
+  private addTaskOnKeyEnterPress(event: any, project) {
+    if (event.keyCode == 13) {
+      this.addTask(project)
+    }
+  }
+
+  /**
+   * Remove task from current project
+   * @param Task
+   */
+  removeTask(project, theTask) {
+    project.tasks.forEach((task, i) => {
+      if (task.id == theTask.id) {
+        project.tasks.splice(i, 1);
+        this.projectsData.save(project).then(data => {
+          // project.newTask = '';
+        });
+      }
+    });
   }
 }
