@@ -8,4 +8,5 @@ A simple to-do app to test Angular Material 2 functionalities
 2. cd `angular-todo-app`
 3. `npm install`
 4. run `ng serve` from a terminal
+5. go to [http://localhost:4200/]()
 
