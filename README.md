@@ -1,6 +1,6 @@
 # AngularTodoApp
 
-A simple to-do app to test Angular Material 2 functionalities
+A simple to-do app to test Angular Material 2 functionalities. Demo [here](https://dbartumeu.github.io/angular-todo-app/).
 
 ## Installation & Development
 
